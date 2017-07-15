@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!--引入下面这行（在很多网页都能copy）-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
+		<title>~Movie-info~</title>
+
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" >
+		
+		<link rel="stylesheet" href="css/swiper-3.4.2.min.css" />
+		
+		<style>
+			body{
+				background-color:#eee;
+			}
+			.header01 img{
+				width:48px;
+				height:47px;
+				margin-top:9px;
+				margin-left:10px;
+			}
+			.header02 img{
+				width:123px;
+				height:18px;
+				margin-top:5px;
+			}.header03 img{
+				float:right;
+				width:52px;
+			}	
+			#open-APP{
+				width:65px;
+				height:24px;
+				border:1px solid #DCDCDC;
+				position:absolute;
+				top:20px;
+				right:10px;
+				text-align:center;
+				/*align-items:center;*/				  /*why不能垂直居中????*/
+				
+			}
+			.navbar-header{
+				/*border:1px solid;*/
+				height:65px;
+			}
+			#main-picture{
+				width:120%;
+				height:240px;
+				margin-left:-30px;
+			}
+			#picture2{
+				width:95px;
+				height:130px;
+				border-radius:6px;
+				position:absolute;
+				left:6px;
+				top:230px;
+				border:3px white solid;
+			}
+			#star{
+				width:38%;
+				height:15px;
+				position:absolute;
+				top:230px;
+				left:110px;
+			}
+			#star img{
+				width:13px;
+				height:13px;
+			}
+			#star span{
+				color:red;
+				font-size:17px;
+				font-weight:bold;
+			}
+			/*电影标题：*/
+			#text{
+				width:35%;
+				height:45px;
+				position:absolute;
+				top:250px;
+				left:110px;
+			}
+			#text1{
+				color:white;
+				font-size:22px;
+			}
+			#text2{
+				color:#D4D4D4;
+				font-size:13px;
+			}
+			#info{  
+				width:65%;
+				height:85px;
+				position:absolute;
+				top:310px;
+				left:110px;
+			}	
+			#info span{
+				font-size:5px;
+			}
+			#type{
+				widows:35%;
+				height:17px;
+				background-color:#C0C0C0;
+				position:absolute;
+				top:350px;
+				left:122px;
+				font-size:2px;
+			}
+			#time{
+				/*widows:30%;*/     /*???*/ 
+				height:17px;
+				background-color:#C0C0C0;
+				position:absolute;
+				top:350px;
+				left:242px;
+				font-size:2px;
+			}
+			#movie-info{    /*电影内容介绍*/
+				width:94%;
+				height:60px;
+				margin-left:3%;
+				margin-top:82px;
+				overflow:hidden;    /*加这个！！  文字才会隐藏*/
+			}
+			#show{
+				width:100%;
+				height:30px;
+				text-align:center;
+				margin-top:12px;
+				display:block;
+				color:red;
+				border-bottom:1px #C0C0C0 solid;
+			}
+			#hide{
+				width:100%;
+				height:30px;
+				text-align:center;
+				color:red;
+				border-bottom:1px #C0C0C0 solid;
+				margin-top:10px;
+			}
+			#jz{
+				margin-top:10px;
+			}
+			#count{
+				color:red;
+				text-align:center;
+				margin-top:10px;
+				border-bottom:1px #C0C0C0 solid;
+				height:30px;
+			}
+			.swiper-slide img{
+				width:30%;
+				height:100px;
+				margin-left:2%;
+			}
+			#wala{
+				margin-top:20px;
+				color:grey;
+			}
+			/*媒体对象：*/
+			#media{
+				width:100%;
+				padding-top:12px;
+				font-size:10px;
+			}
+			/*星级：*/
+			#stars{
+				width:70%;
+				padding-top:5px;
+				padding-bottom:11px;
+				float:left;
+			}
+			#point{
+				color:red;
+			}
+			/*评论和点赞图标：*/
+			#heart{
+				width:30%;
+				height:36px;
+				float:right;
+				padding-top:5px;
+				padding-bottom:11px;
+			}
+			/*星级+评论点赞图标：*/
+			#star-icons{
+				border-bottom:1px solid #C0C0C0;
+				width:100%;
+				height:40px;
+			}
+			/*底部固定栏：*/
+			.container{
+				width:110%;
+				/*height:50px;*/
+				background-color:#eee;
+				line-height:50px;   /*设行高！！   元素自动垂直对齐！！！*/
+			}
+			#bottom1{
+				width:50%;
+				float:left;
+			}
+			#bottom2{
+				width:50%;
+				float:right;
+				background-color:orangered;
+				font-size:21px;
+				color:white;
+				text-align:center;
+			}
+			#back{
+				width:33px;
+				height:33px;
+				line-height:30px;
+				text-align:center;
+				/*border:1px solid;*/
+				/*float:right;*/
+				position:absolute;
+				top:83px;
+				left:19px;
+				border-radius:20px;
+				background-color:rgba(0, 0, 0, 0.3);
+			}
+			#three-line{
+				width:36px;
+				height:36px;
+				line-height:30px;
+				text-align:center;
+				/*border:1px solid;*/
+				/*float:right;*/
+				position:absolute;
+				top:83px;
+				right:19px;
+				border-radius:20px;
+				background-color:rgba(0, 0, 0, 0.3);
+			}
+			#dropdown{
+				display:none;
+				position:absolute;
+				top:115px;
+				right:17px;
+				width:105px;
+				height:75px;
+				color:white;
+				padding:6px;
+				line-height:31px;
+				/*颜色：0~255，越小越深色*/
+				background-color:rgba(0, 0, 0, 0.3);   /*最后一位设透明度！！ 0~1， 越小越透明~~   */
+			}
+			#on{
+				width:30px;
+				height:30px;
+				position:absolute;
+				left:47%;
+				top:13%;
+			}
+			
+				
+				
+		</style>
+		
+		<script type="text/javascript">
+			function show(){
+				document.getElementById("movie-info").style.overflow="visible";
+				document.getElementById("movie-info").style.height="200px";//高度也要改，不然位置出错！
+				document.getElementById("show").style.display="none";
+			}
+			function hide(){
+				document.getElementById("movie-info").style.overflow="hidden";
+				document.getElementById("movie-info").style.height="60px";
+				document.getElementById("show").style.display="block";
+			}
+			
+			var flag=true;
+			function showMenu(){
+				if(flag){
+					$("#dropdown").show();
+					flag=false;
+				}else{
+					$("#dropdown").hide();
+					flag=true;
+				}
+			}
+			
+			
+			
+		</script>
+		
+		
+		
+	</head>
+	<body >
+		
+<!--navbar和container-fluid都是扩住所有内容区域-->	
+	<nav class="navbar">
+		<div class="container-fluid">	
+			
+			
+			<!--首页顶部标签条：-->
+			<div class="navbar-header">
+				<!--图标1-->
+				<a class="navabar-brand header01" href="#">
+					<img  src="img/gewala-logo.png" alt="brand1" />				
+				</a>
+				<!--图标2-->
+				<span id="citytotal">
+					<a class="navabar-brand header02" href="City.html">
+						<img  src="img/gewala.png" alt="brand2"  />				
+					</a>
+				</span>
+				<!--图标3-->
+				<a class="navabar-brand header03" href="#" >
+					<div id="open-APP">
+						<font color="#8C8C8C">打开APP</font>
+					</div>				
+				</a>
+			</div> <!--顶部标签条完毕-->
+
+			
+			<!--返回图标：-->
+			<div id="back">
+				<a href="Movie.html">
+					<img src="img/back.png" width="23px" height="23px"  />
+				</a>
+			</div>
+								
+			<!--下拉菜单按钮：-->	
+			<div id="three-line">
+				<!--方法名不能带特殊符号！！！ 如横杠！！！-->
+				<img src="img/fenlei.png" width="23px" height="23px" onclick="showMenu()" />
+			</div>
+
+			<!--大图中间的播放按钮：-->
+			<div id="on">
+				<img src="img/bofang.png" width="30px" height="30px"  />
+			</div>
+			
+			
+			
+			<!--大图：-->
+			<div >
+				<img src="img/10.jpg" id="main-picture"/>
+			</div>	
+			
+			
+			<!--下拉菜单：-->		
+			<div class="dropdown" id="dropdown">
+				<div class="dropdown-content">
+					<!--<a href="#">-->
+						<img src="img/shouyehsouye.png"width="18px" height="18px"  />&nbsp首页
+					<!--</a>-->
+					<br />
+					<!--<a href="#">-->
+						<img src="img/gerengeren.png" width="18px" height="18px"  />&nbsp个人中心
+					<!--</a>-->
+				</div>
+			</div>
+			
+			
+			
+			<!--小图（贴在大图左下角）-->
+			<div id="picture2" >
+				<img src="img/naiba3.jpg"  width="89px" height="125px"/>
+			</div>
+			
+			
+			<div id="star">
+				<img src="img/星星.png" />
+				<img src="img/星星.png" />
+				<img src="img/星星.png" />
+				<img src="img/星星.png" />
+				<img src="img/星星.png" />
+				<span>8.6</span>
+			</div>
+			<div id="text">
+				<span id="text1">神偷奶爸3</span>
+				<span id="text2">Despicable Me 3</span>
+			</div>
+			
+			<div id="info">
+				<span>
+					导演：肯·道里欧<br />
+					主演：史蒂夫·卡瑞尔 克里斯汀·韦格...
+				</span>
+			</div>
+			
+			
+			<div id="type">动画，喜剧，冒险</div>
+			<div id="time">1 h 30 min</div>
+			
+			
+			<!--电影介绍（长；伸缩）：-->
+			<div id="movie-info">
+				<p>
+				奶爸格鲁与特工露西奶爸格鲁与特工露西奶爸格鲁与特工露西奶爸格鲁与特工露西1
+				奶爸格鲁与特工露西奶爸格鲁与特工露西奶爸格鲁与特工露西奶爸格鲁与特工露西2
+				奶爸格鲁与特工露西奶爸格鲁与特工露西奶爸格鲁与特工露西奶爸格鲁与特工露西3
+				奶爸格鲁与特工露西奶爸格鲁与特工露西奶爸格鲁与特工露西奶爸格鲁与特工露西4
+				</p>
+				<div id="hide" onclick="hide()">收起</div>
+			</div>
+			
+			<div id="show" onclick="show()">展开</div>
+			
+			<br />
+			<p>剧照</p>
+	<!--这里有bug！！！！！！   图片不能直接横向排列，这里是控制每页显示的图片位置来模拟实现的。。。-->
+	<!--这里有bug！！！！！！   图片不能直接横向排列，这里是控制每页显示的图片位置来模拟实现的。。。-->
+	<!--这里有bug！！！！！！   图片不能直接横向排列，这里是控制每页显示的图片位置来模拟实现的。。。-->
+	<!--这里有bug！！！！！！   图片不能直接横向排列，这里是控制每页显示的图片位置来模拟实现的。。。-->
+			<div class="swiper-container">
+				<div class="swiper-wrapper" >
+					<div class="swiper-slide">
+						<img src="img/willsale01.png" />
+						<img src="img/willsale02.png" />
+						<img src="img/willsale03.png" />
+					</div>
+					<div class="swiper-slide">
+						<img src="img/willsale04.png" />
+						<img src="img/willsale05.png" />
+						<img src="img/willsale01.png" />
+					</div>
+					<div class="swiper-slide">
+						<img src="img/willsale02.png" />
+						<img src="img/willsale03.png" />
+						<img src="img/willsale04.png" />
+					</div>
+					<div class="swiper-slide">
+						<img src="img/willsale05.png" />
+						<img src="img/willsale01.png" />
+						<img src="img/willsale02.png" />
+					</div>
+					<div class="swiper-slide">
+						<img src="img/willsale05.png" />
+						<img src="img/willsale01.png" />
+						<img src="img/willsale02.png" />
+					</div>
+				</div>	
+			</div>		
+			
+			<!--p标签也可有   border  hhh~~~-->
+			<p id="count">共69张剧照</p>
+			
+			
+		<!--评论（用ionic的功能）：-->
+		<!--ionic引入它的样式后页面不能滚动， 所以不用它-->
+			<!--<div class="list" >
+				<div class="item item-avatar" >
+					<img class="media-object" src="img/1.JPEG" style="width:80px; height:80px" alt="media-object~" />						<h4>Hxx518</h4>
+					<span id="media-date">2017-07-09</span>
+				</div>	
+			</div>-->
+
+
+			<p id="wala">哇啦~~</p>
+			
+			<ul class="media-list">
+				<!--第一个媒体对象：-->
+				<li class="media" >
+				<!--media-middle则左边的图标会垂直居中-->
+					<div class="media-left media-middle" >
+						<a href="">
+						<!--这个位置其实还可放视频等，但这里（media）一般放头像(因为比较小)-->
+							<img class="media-object" src="img/1.JPEG" alt="img1" style="width:50px;height:50px;"/>
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">Hxx518</h4>
+					<!--以下是正文部分，不用标签。手机会自动调整缩小，使换行显示-->
+						2017-07-09
+					</div>
+				</li>
+				<div id="media">
+					This movie is extremely worthy of watching~~~~<br />
+				</div>
+				<div id="star-icons">
+					<div id="stars">
+						<img src="img/星星.png"  alt="star"  style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<span id="point">10<sup>.0</sup></span>
+					</div>
+					<div id="heart">
+						<img src="img/评论.png" alt="comments~"  style="width:18px;height:18px"/>
+						<span>10</span>
+						&nbsp&nbsp
+						<img src="img/爱心2.png" alt="love~" style="width:18px;height:18px" />
+						<span>10</span>
+					</div>
+				</div>	
+				
+				<!--第二个媒体对象：-->
+				<li class="media" >
+				<!--media-middle则左边的图标会垂直居中-->
+					<div class="media-left media-middle" >
+						<a href="">
+						<!--这个位置其实还可放视频等，但这里（media）一般放头像(因为比较小)-->
+							<img class="media-object" src="img/2.JPEG" alt="img1" style="width:50px;height:50px;"/>
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">Hxx518</h4>
+					<!--以下是正文部分，不用标签。手机会自动调整缩小，使换行显示-->
+						2017-07-09
+					</div>
+				</li>
+				<div id="media">
+					This movie is extremely worthy of watching~~~~<br />
+				</div>
+				<div id="star-icons">
+					<div id="stars">
+						<img src="img/星星.png"  alt="star"  style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<span id="point">8<sup>.9</sup></span>
+					</div>
+					<div id="heart">
+						<img src="img/评论.png" alt="comments~"  style="width:18px;height:18px"/>
+						<span>10</span>
+						&nbsp&nbsp
+						<img src="img/爱心2.png" alt="love~" style="width:18px;height:18px" />
+						<span>6</span>
+					</div>
+				</div>	
+				
+				<!--第三个媒体对象：-->
+				<li class="media" >
+				<!--media-middle则左边的图标会垂直居中-->
+					<div class="media-left media-middle" >
+						<a href="">
+						<!--这个位置其实还可放视频等，但这里（media）一般放头像(因为比较小)-->
+							<img class="media-object" src="img/3.JPEG" alt="img1" style="width:50px;height:50px;"/>
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">Hxx518</h4>
+					<!--以下是正文部分，不用标签。手机会自动调整缩小，使换行显示-->
+						2017-07-09
+					</div>
+				</li>
+				<div id="media">
+					This movie is extremely worthy of watching~~~~<br />
+				</div>
+				<div id="star-icons">
+					<div id="stars">
+						<img src="img/星星.png"  alt="star"  style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<span id="point">7<sup>.8</sup></span>
+					</div>
+					<div id="heart">
+						<img src="img/评论.png" alt="comments~"  style="width:18px;height:18px"/>
+						<span>5</span>
+						&nbsp&nbsp
+						<img src="img/爱心2.png" alt="love~" style="width:18px;height:18px" />
+						<span>6</span>
+					</div>
+				</div>	
+				
+				
+				<!--第四个媒体对象：-->
+				<li class="media" >
+				<!--media-middle则左边的图标会垂直居中-->
+					<div class="media-left media-middle" >
+						<a href="">
+						<!--这个位置其实还可放视频等，但这里（media）一般放头像(因为比较小)-->
+							<img class="media-object" src="img/4.JPEG" alt="img1" style="width:50px;height:50px;"/>
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">Hxx518</h4>
+					<!--以下是正文部分，不用标签。手机会自动调整缩小，使换行显示-->
+						2017-07-09
+					</div>
+				</li>
+				<div id="media">
+					This movie is extremely worthy of watching~~~~<br />
+				</div>
+				<div id="star-icons">
+					<div id="stars">
+						<img src="img/星星.png"  alt="star"  style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<span id="point">6<sup>.5</sup></span>
+					</div>
+					<div id="heart">
+						<img src="img/评论.png" alt="comments~"  style="width:18px;height:18px"/>
+						<span>2</span>
+						&nbsp&nbsp
+						<img src="img/爱心2.png" alt="love~" style="width:18px;height:18px" />
+						<span>5</span>
+					</div>
+				</div>	
+				
+				<!--第五个媒体对象：-->
+				<li class="media" >
+				<!--media-middle则左边的图标会垂直居中-->
+					<div class="media-left media-middle" >
+						<a href="">
+						<!--这个位置其实还可放视频等，但这里（media）一般放头像(因为比较小)-->
+							<img class="media-object" src="img/5.JPEG" alt="img1" style="width:50px;height:50px;"/>
+						</a>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">Hxx518</h4>
+					<!--以下是正文部分，不用标签。手机会自动调整缩小，使换行显示-->
+						2017-07-09
+					</div>
+				</li>
+				<div id="media">
+					This movie is extremely worthy of watching~~~~<br />
+				</div>
+				<div id="star-icons">
+					<div id="stars">
+						<img src="img/星星.png"  alt="star"  style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<img src="img/星星.png"  alt="star" style="width:14px;height:14px"/>
+						<span id="point">9<sup>.9</sup></span>
+					</div>
+					<div id="heart">
+						<img src="img/评论.png" alt="comments~"  style="width:18px;height:18px"/>
+						<span>30</span>
+						&nbsp&nbsp
+						<img src="img/爱心2.png" alt="love~" style="width:18px;height:18px" />
+						<span>33</span>
+					</div>
+				</div>	
+				
+			</ul>	
+			
+
+		<!--固定底部的栏目：-->
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+			<div class="container">
+				<div id="bottom1">
+					<img src="img/爱心2.png" width="30px" height="30px"/>17K
+					&nbsp&nbsp
+					<img src="img/写.png" width="30px" height="30px"/>写哇啦
+				</div>
+				<div id="bottom2">
+					选座购票
+				</div>
+			</div>
+		</nav>	
+			
+			
+
+			
+	</div>  <!--end  container-fluid-->
+	</nav>   <!--end  navbar-->		
+		
+		
+
+			
+			
+			
+				
+				
+		
+	
+		
+		
+		
+		
+		<script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+	
+		<script type="text/javascript" src="js/swiper-3.4.2.jquery.min.js"></script>
+		
+		
+		<script type="text/javascript">
+			
+ 			 var mySwiper = new Swiper('.swiper-container',{
+  					loop: true,
+					autoplay: 1500,    //自动切换，同时也可手动切换
+  				});
+		</script>
+		
+		
+		
+	</body>
+</html>
